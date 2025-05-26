@@ -32,35 +32,35 @@ export default function Dashboard() {
   const metricCards = [
     { 
       title: 'Total Leads', 
-      value: metrics.total_leads || 0, 
+      value: metrics?.total_leads ?? 0, 
       icon: '👥',
       color: 'blue',
       description: 'All registered leads'
     },
     { 
       title: 'Open Leads', 
-      value: metrics.open_leads || 0, 
+      value: metrics?.open_leads ?? 0, 
       icon: '🎯',
       color: 'green',
       description: 'Active opportunities'
     },
     { 
       title: 'Conversions', 
-      value: metrics.conversions || 0, 
+      value: metrics?.conversions ?? 0, 
       icon: '💰',
       color: 'purple',
       description: 'Successfully converted'
     },
     { 
       title: 'Orders in Progress', 
-      value: metrics.orders_in_progress || 0, 
+      value: metrics?.orders_in_progress ?? 0, 
       icon: '📦',
       color: 'orange',
       description: 'Currently processing'
     },
     { 
       title: 'Pending Follow-ups', 
-      value: metrics.pending_followups || 0, 
+      value: metrics?.pending_followups ?? 0, 
       icon: '⏰',
       color: 'red',
       description: 'Require attention'
@@ -83,7 +83,7 @@ export default function Dashboard() {
         <>
           <div className="metrics-grid">
             {metricCards.map((metric, index) => (
-              <div key={metric.title} className={`metric-card ${metric.color}`} style={{animationDelay: `${index * 0.1}s`}}>
+              <div key={metric.title} className={`metric-card ${metric.color}`} style={{ animationDelay: `${index * 0.1}s` }}>
                 <div className="metric-icon">{metric.icon}</div>
                 <div className="metric-content">
                   <h3 className="metric-title">{metric.title}</h3>
@@ -99,11 +99,11 @@ export default function Dashboard() {
             <h2 className="graph-title">Leads & Orders Summary</h2>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={[
-                { name: 'Total Leads', value: metrics.total_leads || 0 },
-                { name: 'Open Leads', value: metrics.open_leads || 0 },
-                { name: 'Conversions', value: metrics.conversions || 0 },
-                { name: 'Orders', value: metrics.orders_in_progress || 0 },
-                { name: 'Follow-ups', value: metrics.pending_followups || 0 },
+                { name: 'Total Leads', value: metrics?.total_leads ?? 0 },
+                { name: 'Open Leads', value: metrics?.open_leads ?? 0 },
+                { name: 'Conversions', value: metrics?.conversions ?? 0 },
+                { name: 'Orders', value: metrics?.orders_in_progress ?? 0 },
+                { name: 'Follow-ups', value: metrics?.pending_followups ?? 0 },
               ]}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
@@ -116,8 +116,6 @@ export default function Dashboard() {
           </div>
         </>
       )}
-
-      
     </div>
   );
 }

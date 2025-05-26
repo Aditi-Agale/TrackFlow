@@ -3,7 +3,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
-  background: linear-gradient(135deg, #d7dcf2 0%, #e3d5ef 100%);
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
   min-height: 100vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -12,24 +12,24 @@
 .dashboard-header {
   text-align: center;
   margin-bottom: 3rem;
-  color: white;
+  padding: 2rem 0;
 }
 
 .dashboard-title {
   font-size: 3rem;
   font-weight: 700;
   margin: 0 0 0.5rem 0;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   background: linear-gradient(135deg, #3b82f6, #1e40af);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .dashboard-subtitle {
   font-size: 1.2rem;
   margin: 0;
-  opacity: 0.9;
+  color: #64748b;
   font-weight: 300;
 }
 
@@ -40,14 +40,15 @@
   align-items: center;
   justify-content: center;
   height: 300px;
-  color: white;
+  color: #64748b;
+  font-size: 1.1rem;
 }
 
 .loading-spinner {
   width: 50px;
   height: 50px;
-  border: 4px solid rgba(255, 255, 255, 0.3);
-  border-top: 4px solid white;
+  border: 4px solid #e2e8f0;
+  border-top: 4px solid #3b82f6;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 1rem;
@@ -68,19 +69,17 @@
 
 /* Metric Cards */
 .metric-card {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 20px;
+  background: white;
+  border-radius: 16px;
   padding: 2rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   position: relative;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   animation: slideInUp 0.6s ease-out forwards;
   opacity: 0;
   transform: translateY(30px);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid #f1f5f9;
 }
 
 @keyframes slideInUp {
@@ -91,8 +90,8 @@
 }
 
 .metric-card:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
 }
 
 .metric-card::before {
@@ -131,12 +130,18 @@
   --card-color-light: #f87171;
 }
 
+.metric-card.indigo {
+  --card-color: #6366f1;
+  --card-color-light: #818cf8;
+}
+
 /* Metric Card Content */
 .metric-icon {
   font-size: 2.5rem;
   margin-bottom: 1rem;
   display: inline-block;
   animation: bounce 2s infinite;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 @keyframes bounce {
@@ -159,7 +164,7 @@
 .metric-title {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #374151;
+  color: #475569;
   margin: 0 0 0.5rem 0;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -176,9 +181,9 @@
 
 .metric-description {
   font-size: 0.9rem;
-  color: #6b7280;
+  color: #64748b;
   margin: 0;
-  opacity: 0.8;
+  line-height: 1.4;
 }
 
 /* Metric Decoration */
@@ -190,7 +195,7 @@
   height: 100px;
   background: linear-gradient(45deg, var(--card-color), var(--card-color-light));
   border-radius: 50%;
-  opacity: 0.1;
+  opacity: 0.08;
   z-index: 1;
 }
 
@@ -200,6 +205,7 @@
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
+  margin-top: 2rem;
 }
 
 .action-btn {
@@ -212,12 +218,13 @@
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   text-decoration: none;
   position: relative;
   overflow: hidden;
   min-width: 150px;
   justify-content: center;
+  font-family: inherit;
 }
 
 .action-btn::before {
@@ -238,37 +245,37 @@
 .action-btn.primary {
   background: linear-gradient(135deg, #10b981, #059669);
   color: white;
-  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.25);
 }
 
 .action-btn.primary:hover {
   background: linear-gradient(135deg, #059669, #047857);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
 }
 
 .action-btn.secondary {
   background: linear-gradient(135deg, #3b82f6, #2563eb);
   color: white;
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.25);
 }
 
 .action-btn.secondary:hover {
   background: linear-gradient(135deg, #2563eb, #1d4ed8);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
 }
 
 .action-btn.tertiary {
-  background: linear-gradient(135deg, #6b7280, #4b5563);
+  background: linear-gradient(135deg, #64748b, #475569);
   color: white;
-  box-shadow: 0 4px 15px rgba(107, 114, 128, 0.4);
+  box-shadow: 0 4px 15px rgba(100, 116, 139, 0.25);
 }
 
 .action-btn.tertiary:hover {
-  background: linear-gradient(135deg, #4b5563, #374151);
+  background: linear-gradient(135deg, #475569, #334155);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(107, 114, 128, 0.6);
+  box-shadow: 0 8px 25px rgba(100, 116, 139, 0.4);
 }
 
 .btn-icon {
@@ -277,7 +284,138 @@
 }
 
 .action-btn:hover .btn-icon {
-  transform: scale(1.2);
+  transform: scale(1.2) rotate(5deg);
+}
+
+/* Dashboard Graph Section */
+.dashboard-graph {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  margin-top: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f1f5f9;
+  transition: all 0.3s ease;
+}
+
+.dashboard-graph:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.graph-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.graph-title::before {
+  content: '📊';
+  font-size: 1.2rem;
+}
+
+/* Chart Styling */
+.recharts-wrapper {
+  font-family: inherit;
+}
+
+.recharts-cartesian-axis-tick-value {
+  fill: #64748b;
+  font-size: 12px;
+}
+
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: #f1f5f9;
+}
+
+.recharts-bar {
+  fill: #3b82f6;
+}
+
+.recharts-tooltip-wrapper {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.recharts-default-tooltip {
+  background: white !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.recharts-tooltip-label {
+  color: #1e293b !important;
+  font-weight: 600 !important;
+}
+
+.recharts-tooltip-item {
+  color: #3b82f6 !important;
+}
+
+/* Status Indicators */
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.status-indicator.success {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-indicator.warning {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-indicator.error {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.status-indicator.info {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+/* Progress Bars */
+.progress-container {
+  margin: 1rem 0;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #f1f5f9;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--card-color), var(--card-color-light));
+  border-radius: 4px;
+  transition: width 0.3s ease;
 }
 
 /* Responsive Design */
@@ -287,7 +425,7 @@
   }
   
   .dashboard-title {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
   
   .dashboard-subtitle {
@@ -314,6 +452,15 @@
   
   .action-btn {
     width: 100%;
+    justify-content: center;
+  }
+  
+  .dashboard-graph {
+    padding: 1.5rem;
+  }
+  
+  .graph-title {
+    font-size: 1.25rem;
   }
 }
 
@@ -323,7 +470,7 @@
   }
   
   .dashboard-title {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
   
   .metric-card {
@@ -337,21 +484,9 @@
   .metric-value {
     font-size: 1.8rem;
   }
-}
-
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  .metric-card {
-    background: rgba(31, 41, 55, 0.95);
-    color: white;
-  }
   
-  .metric-title {
-    color: #d1d5db;
-  }
-  
-  .metric-description {
-    color: #9ca3af;
+  .dashboard-graph {
+    padding: 1rem;
   }
 }
 
@@ -371,19 +506,33 @@
     box-shadow: none;
     border: 1px solid #e5e7eb;
   }
-}
-.dashboard-graph {
-  background: #fff;
-  border-radius: 10px;
-  padding: 2rem;
-  margin-top: 2rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  
+  .dashboard-graph {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #e5e7eb;
+  }
 }
 
-.graph-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 1rem;
-  text-align: center;
-}
+/* Animation delays for staggered loading */
+.metric-card:nth-child(1) { animation-delay: 0.1s; }
+.metric-card:nth-child(2) { animation-delay: 0.2s; }
+.metric-card:nth-child(3) { animation-delay: 0.3s; }
+.metric-card:nth-child(4) { animation-delay: 0.4s; }
+.metric-card:nth-child(5) { animation-delay: 0.5s; }
+.metric-card:nth-child(6) { animation-delay: 0.6s; }
+
+/* Utility classes */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-3 { margin-bottom: 0.75rem; }
+.mb-4 { margin-bottom: 1rem; }
+
+.mt-1 { margin-top: 0.25rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-3 { margin-top: 0.75rem; }
+.mt-4 { margin-top: 1rem; }

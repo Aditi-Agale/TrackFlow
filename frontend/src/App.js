@@ -12,6 +12,7 @@ export default function App() {
       <div style={{ padding: '20px' }}> {/* page content padding */}
         <Routes>
           <Route path="/" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/leads" element={<Leads />} />
           <Route path="/orders" element={<Orders />} />
         </Routes>
