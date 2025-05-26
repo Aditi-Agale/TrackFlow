@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Navbar.css';
 
-export default function NavBar() {
+export default function Navbar({ user, onLogout }) {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -25,16 +25,18 @@ export default function NavBar() {
       icon: '📦',
       description: 'Track Fulfillment'
     },
-    
   ];
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const getInitial = name => name ? name.charAt(0).toUpperCase() : 'U';
+
   return (
     <nav className="navbar">
       <div className="navbar-container">
+        {/* Brand */}
         <div className="navbar-brand">
           <div className="brand-icon">🚀</div>
           <div className="brand-content">
@@ -42,17 +44,19 @@ export default function NavBar() {
             <div className="brand-tagline">CRM & Operations</div>
           </div>
         </div>
-        
+
+        {/* Center Indicator */}
         <div className="navbar-center">
           <div className="nav-indicator"></div>
         </div>
 
+        {/* Navigation Links */}
         <ul className={`navbar-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
           {navItems.map((item, index) => (
-            <li 
-              key={item.path} 
+            <li
+              key={item.path}
               className={location.pathname === item.path ? 'active' : ''}
-              style={{animationDelay: `${index * 0.1}s`}}
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
               <Link to={item.path} onClick={() => setIsMobileMenuOpen(false)}>
                 <div className="nav-link-content">
@@ -68,22 +72,26 @@ export default function NavBar() {
           ))}
         </ul>
 
+        {/* Actions */}
         <div className="navbar-actions">
           <button className="notification-btn">
             <span className="notification-icon">🔔</span>
             <span className="notification-badge">3</span>
           </button>
-          
+
+          {/* User Menu */}
           <div className="user-menu">
-            <div className="user-avatar">U</div>
+            <div className="user-avatar">{getInitial(user?.name)}</div>
             <div className="user-info">
-              <span className="user-name">User</span>
+              <span className="user-name">{user?.name || 'User'}</span>
               <span className="user-role">Admin</span>
             </div>
+            <button className="logout-btn" onClick={onLogout} title="Logout">🚪</button>
           </div>
         </div>
 
-        <button 
+        {/* Hamburger Menu */}
+        <button
           className={`mobile-menu-toggle ${isMobileMenuOpen ? 'active' : ''}`}
           onClick={toggleMobileMenu}
         >

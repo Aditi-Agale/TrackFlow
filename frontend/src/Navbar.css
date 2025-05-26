@@ -430,3 +430,16 @@
     }
   }
 }
+.logout-btn {
+  background: transparent;
+  border: none;
+  margin-left: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #dc2626;
+  transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+  transform: scale(1.2);
+}
