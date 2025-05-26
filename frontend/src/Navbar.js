@@ -8,7 +8,7 @@ export default function NavBar() {
 
   const navItems = [
     {
-      path: '/',
+      path: '/dashboard',
       name: 'Dashboard',
       icon: '📊',
       description: 'Overview & Analytics'
@@ -24,7 +24,8 @@ export default function NavBar() {
       name: 'Orders',
       icon: '📦',
       description: 'Track Fulfillment'
-    }
+    },
+    
   ];
 
   const toggleMobileMenu = () => {
