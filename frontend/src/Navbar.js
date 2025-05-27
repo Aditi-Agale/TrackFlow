@@ -5,6 +5,7 @@ import './Navbar.css';
 export default function Navbar({ user, onLogout }) {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   const navItems = [
     {
@@ -31,6 +32,10 @@ export default function Navbar({ user, onLogout }) {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
+
   const getInitial = name => name ? name.charAt(0).toUpperCase() : 'U';
 
   return (
@@ -45,12 +50,12 @@ export default function Navbar({ user, onLogout }) {
           </div>
         </div>
 
-        {/* Center Indicator */}
+        {/* Center */}
         <div className="navbar-center">
           <div className="nav-indicator"></div>
         </div>
 
-        {/* Navigation Links */}
+        {/* Links */}
         <ul className={`navbar-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
           {navItems.map((item, index) => (
             <li
@@ -79,18 +84,22 @@ export default function Navbar({ user, onLogout }) {
             <span className="notification-badge">3</span>
           </button>
 
-          {/* User Menu */}
-          <div className="user-menu">
+          {/* User Dropdown Menu */}
+          <div className="user-menu" onClick={toggleDropdown}>
             <div className="user-avatar">{getInitial(user?.name)}</div>
             <div className="user-info">
               <span className="user-name">{user?.name || 'User'}</span>
               <span className="user-role">Admin</span>
             </div>
-            <button className="logout-btn" onClick={onLogout} title="Logout">🚪</button>
+            {showDropdown && (
+              <div className="dropdown-menu">
+                <button className="dropdown-item" onClick={onLogout}>🚪 Sign Out</button>
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Hamburger Menu */}
+        {/* Mobile Hamburger */}
         <button
           className={`mobile-menu-toggle ${isMobileMenuOpen ? 'active' : ''}`}
           onClick={toggleMobileMenu}

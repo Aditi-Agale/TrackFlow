@@ -443,3 +443,30 @@
 .logout-btn:hover {
   transform: scale(1.2);
 }
+.dropdown-menu {
+  position: absolute;
+  top: 60px;
+  right: 10px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  z-index: 999;
+  padding: 0.5rem 0;
+}
+
+.dropdown-item {
+  width: 150px;
+  padding: 0.6rem 1.2rem;
+  text-align: left;
+  background: none;
+  border: none;
+  color: #1e293b;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #f1f5f9;
+}

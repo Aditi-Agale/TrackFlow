@@ -18,7 +18,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     setIsLoading(true);
-    axios.get('http://localhost:5000/dashboard')
+    axios.get('https://trackflow-pp6f.onrender.com/dashboard')
       .then(res => {
         setMetrics(res.data);
         setIsLoading(false);

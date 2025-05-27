@@ -13,7 +13,7 @@ export default function Leads() {
 
   useEffect(() => {
     setIsLoading(true);
-    axios.get('http://localhost:5000/leads/all')
+    axios.get('https://trackflow-pp6f.onrender.com/leads/all')
       .then(res => {
         setLeads(res.data);
         setIsLoading(false);
@@ -30,7 +30,7 @@ export default function Leads() {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      await axios.post('http://localhost:5000/leads', formData);
+      await axios.post('https://trackflow-pp6f.onrender.com/leads', formData);
       window.location.reload();
     } catch (error) {
       console.error('Error adding lead:', error);
@@ -47,7 +47,7 @@ export default function Leads() {
     const data = new FormData();
     data.append('document', selectedFiles[leadId]);
     try {
-      await axios.post(`http://localhost:5000/leads/${leadId}/upload`, data, {
+      await axios.post(`https://trackflow-pp6f.onrender.com/leads/${leadId}/upload`, data, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       alert('Document uploaded');
@@ -60,12 +60,12 @@ export default function Leads() {
 
   const updateStage = async (leadId, newStage) => {
     try {
-      await axios.put(`http://localhost:5000/leads/${leadId}`, { stage: newStage });
+      await axios.put(`https://trackflow-pp6f.onrender.com/leads/${leadId}`, { stage: newStage });
       if (newStage === "Won") {
-        await axios.post(`http://localhost:5000/orders`, { lead_id: leadId, status: "Order Received" });
+        await axios.post(`https://trackflow-pp6f.onrender.com/orders`, { lead_id: leadId, status: "Order Received" });
         alert('Lead won - Order created automatically');
       }
-      const res = await axios.get('http://localhost:5000/leads/all');
+      const res = await axios.get('https://trackflow-pp6f.onrender.com/leads/all');
       setLeads(res.data);
     } catch (error) {
       console.error('Error updating stage:', error);
@@ -253,7 +253,7 @@ export default function Leads() {
                       {lead.documents.map((doc, i) => (
                         <a 
                           key={i}
-                          href={`http://localhost:5000/uploads/${doc}`} 
+                          href={`https://trackflow-pp6f.onrender.com/uploads/${doc}`} 
                           target="_blank" 
                           rel="noreferrer"
                           className="document-link"
