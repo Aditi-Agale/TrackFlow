@@ -11,27 +11,42 @@ export default function App() {
   const [checkingAuth, setCheckingAuth] = useState(true);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    console.log('Stored user from localStorage:', storedUser);
-    if (storedUser) setUser(JSON.parse(storedUser));
+    // Check if window is available (to support Vercel/SSR environments)
+    if (typeof window !== "undefined") {
+      const storedUser = localStorage.getItem('user');
+      console.log('Stored user from localStorage:', storedUser);
+      if (storedUser) {
+        try {
+          const parsedUser = JSON.parse(storedUser);
+          setUser(parsedUser);
+        } catch (error) {
+          console.error("Failed to parse stored user:", error);
+          localStorage.removeItem('user');
+        }
+      }
+    }
     setCheckingAuth(false);
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('user');
+    if (typeof window !== "undefined") {
+      localStorage.removeItem('user');
+    }
     setUser(null);
   };
 
-  if (checkingAuth) {
-    return <div style={{ textAlign: 'center', marginTop: '50px' }}>Loading...</div>;
-  }
-
   return (
     <Router>
-      {!user ? (
+      {checkingAuth ? (
+        <div style={{ textAlign: 'center', marginTop: '50px' }}>Loading...</div>
+      ) : !user ? (
         <Routes>
-          {/* Show only Auth route when user is not logged in */}
-          <Route path="*" element={<Auth onLogin={setUser} />} />
+          <Route path="*" element={<Auth onLogin={(userData) => {
+            setUser(userData);
+            if (typeof window !== "undefined") {
+              localStorage.setItem("user", JSON.stringify(userData));
+            }
+          }} />} />
         </Routes>
       ) : (
         <>
@@ -39,9 +54,9 @@ export default function App() {
           <div style={{ padding: '20px' }}>
             <Routes>
               <Route path="/" element={<Navigate to="/dashboard" />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/leads" element={<Leads />} />
-              <Route path="/orders" element={<Orders />} />
+              <Route path="/dashboard" element={<Dashboard user={user} />} />
+              <Route path="/leads" element={<Leads user={user} />} />
+              <Route path="/orders" element={<Orders user={user} />} />
               <Route path="*" element={<Navigate to="/dashboard" />} />
             </Routes>
           </div>

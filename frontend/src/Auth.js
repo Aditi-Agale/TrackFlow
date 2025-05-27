@@ -11,32 +11,37 @@ export default function Auth({ onLogin }) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async e => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    // Simulate API delay for better UX
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    // Simulated auth (replace with real API later)
-    if (formData.email && formData.password) {
-      const user = isSignUp
-        ? { name: formData.name, email: formData.email }
-        : { name: "Demo User", email: formData.email };
-
-      localStorage.setItem("user", JSON.stringify(user));
-      onLogin(user);
-    }
-
-    setIsLoading(false);
-  };
-
+  // Focus and blur handlers to manage input field styles
   const handleFocus = (fieldName) => {
     setFocusedField(fieldName);
   };
 
   const handleBlur = () => {
     setFocusedField('');
+  };
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    if (formData.email && formData.password) {
+      const user = isSignUp
+        ? { name: formData.name || "New User", email: formData.email }
+        : { name: "Demo User", email: formData.email };
+
+      // Only save to localStorage if in browser environment
+      if (typeof window !== "undefined") {
+        localStorage.setItem("user", JSON.stringify(user));
+      }
+
+      // Notify parent component (App.js) of successful login
+      onLogin(user);
+    }
+
+    setIsLoading(false);
   };
 
   return (
