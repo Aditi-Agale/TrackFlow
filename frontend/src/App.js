@@ -23,7 +23,6 @@ export default function App() {
   };
 
   if (checkingAuth) {
-    // Show loading while checking localStorage
     return <div style={{ textAlign: 'center', marginTop: '50px' }}>Loading...</div>;
   }
 
