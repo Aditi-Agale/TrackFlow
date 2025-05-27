@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Navbar.css';
 
@@ -8,40 +8,26 @@ export default function Navbar({ user, onLogout }) {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const navItems = [
-    {
-      path: '/dashboard',
-      name: 'Dashboard',
-      icon: '📊',
-      description: 'Overview & Analytics'
-    },
-    {
-      path: '/leads',
-      name: 'Leads',
-      icon: '👥',
-      description: 'Manage Prospects'
-    },
-    {
-      path: '/orders',
-      name: 'Orders',
-      icon: '📦',
-      description: 'Track Fulfillment'
-    },
+    { path: '/dashboard', name: 'Dashboard', icon: '📊', description: 'Overview & Analytics' },
+    { path: '/leads', name: 'Leads', icon: '👥', description: 'Manage Prospects' },
+    { path: '/orders', name: 'Orders', icon: '📦', description: 'Track Fulfillment' },
   ];
 
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+    setIsMobileMenuOpen(prev => !prev);
   };
 
   const toggleDropdown = () => {
-    setShowDropdown(!showDropdown);
+    setShowDropdown(prev => !prev);
   };
 
-  const getInitial = name => name ? name.charAt(0).toUpperCase() : 'U';
+  const getInitial = (name) => name ? name.charAt(0).toUpperCase() : 'U';
 
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        {/* Brand */}
+
+        {/* Brand Section */}
         <div className="navbar-brand">
           <div className="brand-icon">🚀</div>
           <div className="brand-content">
@@ -50,12 +36,12 @@ export default function Navbar({ user, onLogout }) {
           </div>
         </div>
 
-        {/* Center */}
+        {/* Center Indicator */}
         <div className="navbar-center">
           <div className="nav-indicator"></div>
         </div>
 
-        {/* Links */}
+        {/* Navigation Links */}
         <ul className={`navbar-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
           {navItems.map((item, index) => (
             <li
@@ -77,14 +63,13 @@ export default function Navbar({ user, onLogout }) {
           ))}
         </ul>
 
-        {/* Actions */}
+        {/* User & Notifications */}
         <div className="navbar-actions">
           <button className="notification-btn">
             <span className="notification-icon">🔔</span>
             <span className="notification-badge">3</span>
           </button>
 
-          {/* User Dropdown Menu */}
           <div className="user-menu" onClick={toggleDropdown}>
             <div className="user-avatar">{getInitial(user?.name)}</div>
             <div className="user-info">
@@ -93,13 +78,15 @@ export default function Navbar({ user, onLogout }) {
             </div>
             {showDropdown && (
               <div className="dropdown-menu">
-                <button className="dropdown-item" onClick={onLogout}>🚪 Sign Out</button>
+                <button className="dropdown-item" onClick={onLogout}>
+                  🚪 Sign Out
+                </button>
               </div>
             )}
           </div>
         </div>
 
-        {/* Mobile Hamburger */}
+        {/* Mobile Toggle Button */}
         <button
           className={`mobile-menu-toggle ${isMobileMenuOpen ? 'active' : ''}`}
           onClick={toggleMobileMenu}
@@ -108,8 +95,10 @@ export default function Navbar({ user, onLogout }) {
           <span></span>
           <span></span>
         </button>
+
       </div>
 
+      {/* Glow Effect */}
       <div className="navbar-glow"></div>
     </nav>
   );

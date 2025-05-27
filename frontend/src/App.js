@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Dashboard from './Dashboard';
 import Leads from './Leads';
@@ -11,45 +11,52 @@ export default function App() {
   const [checkingAuth, setCheckingAuth] = useState(true);
 
   useEffect(() => {
-    // Check if window is available (to support Vercel/SSR environments)
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       const storedUser = localStorage.getItem('user');
-      console.log('Stored user from localStorage:', storedUser);
       if (storedUser) {
         try {
           const parsedUser = JSON.parse(storedUser);
-          setUser(parsedUser);
+          if (parsedUser && typeof parsedUser === 'object') {
+            setUser(parsedUser);
+          } else {
+            localStorage.removeItem('user');
+          }
         } catch (error) {
-          console.error("Failed to parse stored user:", error);
+          console.error('Failed to parse stored user:', error);
           localStorage.removeItem('user');
         }
       }
+      setCheckingAuth(false);
     }
-    setCheckingAuth(false);
   }, []);
 
+  const handleLogin = (userData) => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('user', JSON.stringify(userData));
+    }
+    setUser(userData);
+  };
+
   const handleLogout = () => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       localStorage.removeItem('user');
     }
     setUser(null);
   };
 
+  if (checkingAuth) {
+    return <div style={{ textAlign: 'center', marginTop: '50px' }}>Loading...</div>;
+  }
+
   return (
     <Router>
-      {checkingAuth ? (
-        <div style={{ textAlign: 'center', marginTop: '50px' }}>Loading...</div>
-      ) : !user ? (
+      {!user ? (
         <Routes>
-          <Route path="*" element={<Auth onLogin={(userData) => {
-            setUser(userData);
-            if (typeof window !== "undefined") {
-              localStorage.setItem("user", JSON.stringify(userData));
-            }
-          }} />} />
+          <Route path="*" element={<Auth onLogin={handleLogin} />} />
         </Routes>
       ) : (
         <>
+          {/* ✅ Router context is now available when Navbar is rendered */}
           <Navbar user={user} onLogout={handleLogout} />
           <div style={{ padding: '20px' }}>
             <Routes>
